@@ -8,33 +8,38 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
     const user = new User(req.body)
-    user.save().then(() => {
+
+    try {
+        await user.save()
         res.status(201).send(user)
-    }).catch((e) => {
+    } catch (e) {
         res.status(400).send(e)
-    })
+    }
 })
 
-app.get('/users', (req, res) => {
-    User.find({}).then((users) => {
+app.get('/users', async (req, res) => {
+    try {
+        const users = await User.find({})
         res.status(200).send(users)
-    }).catch((e) =>{
-        res.status(404).send(e)
-    })
+    } catch (e) {
+        res.status(500).send(e)
+    }
 })
 
-app.get('/users/:id', (req, res) => {
+app.get('/users/:id', async (req, res) => {
     const _id = req.params.id
-    User.findById(_id).then((user) => {
+
+    try {
+        const user = await User.findById(_id)
         if (!user) {
-            return res.status(404).send(user)
+            return res.status(404).send()
         }
-        return res.send(user)
-    }).catch((e) =>{
+        res.send(user)
+    } catch (e) {
         res.status(404).send(e)
-    })
+    }
 })
 
 app.post('/tasks', (req, res) => {
@@ -49,7 +54,7 @@ app.post('/tasks', (req, res) => {
 app.get('/tasks', (req, res) => {
     Task.find({}).then((tasks) => {
         res.status(200).send(tasks)
-    }).catch((e) =>{
+    }).catch((e) => {
         res.status(404).send(e)
     })
 })
@@ -61,7 +66,7 @@ app.get('/tasks/:id', (req, res) => {
             return res.status(404).send(task)
         }
         return res.send(task)
-    }).catch((e) =>{
+    }).catch((e) => {
         res.status(404).send(e)
     })
 })
