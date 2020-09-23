@@ -57,7 +57,7 @@ app.get('/tasks', async (req, res) => {
         const tasks = await Task.find({})
         res.status(200).send(tasks)
     } catch (e) {
-        res.status(404).send(e)
+        res.status(500).send(e)
     }
 })
 
@@ -71,7 +71,7 @@ app.get('/tasks/:id', (req, res) => {
         }
         return res.send(task)
     } catch (e) {
-        res.status(404).send(e)
+        res.status(500).send(e)
     }
 })
 
