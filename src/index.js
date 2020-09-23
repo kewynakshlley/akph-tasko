@@ -42,33 +42,37 @@ app.get('/users/:id', async (req, res) => {
     }
 })
 
-app.post('/tasks', (req, res) => {
+app.post('/tasks', async (req, res) => {
     const task = new Task(req.body)
-    task.save().then(() => {
-        res.status(201).send(task)
-    }).catch((e) => {
+    try {
+        const savedTask = await task.save()
+        res.status(201).send(savedTask)
+    } catch (e) {
         res.status(400).send(e)
-    })
+    }
 })
 
-app.get('/tasks', (req, res) => {
-    Task.find({}).then((tasks) => {
+app.get('/tasks', async (req, res) => {
+    try {
+        const tasks = await Task.find({})
         res.status(200).send(tasks)
-    }).catch((e) => {
+    } catch (e) {
         res.status(404).send(e)
-    })
+    }
 })
 
 app.get('/tasks/:id', (req, res) => {
     const _id = req.params.id
-    Task.findById(_id).then((task) => {
-        if (!task) {
-            return res.status(404).send(task)
+
+    try {
+        const task = Task.findById(_id)
+        if(!task) {
+            return res.status(404).send()
         }
         return res.send(task)
-    }).catch((e) => {
+    } catch (e) {
         res.status(404).send(e)
-    })
+    }
 })
 
 app.listen(port, () => {
