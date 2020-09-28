@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     age: {
         type: Number,
         validate(value) {
-            if(value < 0) {
+            if (value < 0) {
                 throw new Error('Age must be a positive number.')
             }
         }
@@ -33,13 +33,30 @@ const userSchema = new mongoose.Schema({
         minlength: 7,
         trim: true,
         validate(value) {
-            if(value.toLowerCase().includes('password')) {
+            if (value.toLowerCase().includes('password')) {
                 throw new Error('Password cannot contain password')
             }
         }
     }
 })
 
+userSchema.static.findByCredentials = async (email, password) => {
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new Error('Unable to login.')
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if (!isMatch) {
+        throw new Error('Unable to login.')
+    }
+
+    return user
+}
+
+// hash password before saving
 userSchema.pre('save', async function (next) {
     const user = this
     if (user.isModified('password')) {
