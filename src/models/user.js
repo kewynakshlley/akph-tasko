@@ -85,6 +85,16 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userDTO = user.toObject()
+
+    delete userDTO.password
+    delete userDTO.tokens
+
+    return userDTO
+}
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User
