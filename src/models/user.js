@@ -109,6 +109,7 @@ userSchema.methods.toJSON = function () {
 
     delete userDTO.password
     delete userDTO.tokens
+    delete userDTO.avatar
 
     return userDTO
 }
