@@ -1,6 +1,6 @@
 # tasko
 
-n-weather is an app to manage tasks. Basically an user can create an account, authenticate, create and manage tasks that will be seen only for him. I've created this project to improve my knowledge in nodejs and also to use managed databases in production.
+tasko is an app to manage tasks. Basically an user can create an account, authenticate, create and manage tasks that will be seen only for him. I've created this project to improve my knowledge in nodejs and also to use managed databases in production.
 
 BASE URL: https://akph-tasko.herokuapp.com/
 
