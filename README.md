@@ -5,8 +5,11 @@ tasko is an app to manage tasks. Basically an user can create an account, authen
 BASE URL: https://akph-tasko.herokuapp.com/
 
 CREATE USER: /users
+
 LOG IN: /users/login
+
 GET, Update or DELETE user: users/me
+
 Upload profile photo: users/me/avatar
 
 Once logged you can use http verbs on /tasks
