@@ -7,6 +7,4 @@ services:
       MONGO_INITDB_DATABASE: task-manager-db
     ports:
       - "27017:27017"
-    volumes:
-      - ./mongo/volume:/data/db
       
