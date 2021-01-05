@@ -4,15 +4,27 @@ tasko is an app to manage tasks. Basically an user can create an account, authen
 
 BASE URL: https://akph-tasko.herokuapp.com/
 
-CREATE USER: /users
+- /users
+    * method: POST
+    * data: {"name": "Kewyn", "email":"kewyn@kewyn.com", "password":"123456"}
+- /users/login
+    * method: POST
+    * data: {"email":"kewyn@kewyn.com, "password":"123456"}
 
-LOG IN: /users/login
+- /users/me (authenticated)
+    * methods: GET, DELETE, PATCH
+- /users/logout (authenticated)
+    * POST
+- /users/logoutAll (authenticated)
+    * POST (logout from all devices)
+- /users/me/avatar (authenticated)
+    * POST, DELETE
+- /tasks (authenticated)
+    * methods: GET, POST, DELETE, PATCH
+    * data: {"name": "Kewyn", "email":"kewyn@kewyn.com", "password":"123456"}
+- /tasks/ID (authenticated)
+    * method: GET
 
-GET, Update or DELETE user: users/me
-
-Upload profile photo: users/me/avatar
-
-Once logged you can use http verbs on /tasks
 
 Soon enough I pretend to create a frontend app using React to use this API.
 
@@ -22,3 +34,5 @@ Soon enough I pretend to create a frontend app using React to use this API.
 * [npm](https://www.npmjs.com/) - Dependency Management
 * [MongoDB](https://www.mongodb.com/) - Database used
 * [Expressjs](https://expressjs.com/) - Nodejs web application framework
+
+
